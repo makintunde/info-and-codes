@@ -1,0 +1,128 @@
+%        File: notes.tex
+%     Created: Tue Dec 01 09:00 PM 2015 G
+% Last Change: Tue Dec 01 09:00 PM 2015 G
+%
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb,tabu}
+\usepackage{array}
+\usepackage{float}
+\usepackage{enumerate}% http://ctan.org/pkg/enumerate
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=black
+}
+\usepackage{tikz} 
+
+\theoremstyle{definition} \newtheorem*{definition}{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{corollary}{Corollary} \newtheorem*{remark}{Remark}
+\newtheorem*{exmp}{Example} \newtheorem*{exmps}{Examples}
+\newtheorem*{obvs}{Observation}
+\newcommand{\naturals}{\mathbb{N}} \newcommand{\complexes}{\mathbb{C}}
+\begin{document}
+\title{Information and Codes}
+\author{Michael Akintunde}
+\maketitle
+
+\section{Information}
+\begin{definition}
+  The \emph{Entropy} of a probability distribution $p$ is
+  \[
+    H(p) = - \sum p(x)\log_2(p(x))
+  \]
+\end{definition}
+\begin{exmp}
+  Consider a Cheltenham Horse Race with 8 horses with winning chances
+  \[
+    p = \left(
+    \frac{1}{2},\frac{1}{4},\frac{1}{8},\frac{1}{16},\frac{1}{64},
+    \frac{1}{64},\frac{1}{64},\frac{1}{64}\right).
+  \] 
+  The entropy is therefore $-\left( \frac{1}{2}(-1) + \frac{1}{4}(-2) +
+  \frac{1}{8} (-3) + \frac{1}{16} (-4) + \frac{1}{64}(-6)(4) \right) = 2$.
+\end{exmp}
+
+\begin{definition}
+  An \emph{alphabet} is a finite set $S$; its members $s \in S$ are referred to
+  as \emph{symbols}.
+\end{definition}
+
+\begin{definition}
+  A \emph{message} $m$ in the alphabet $S$ is a finite sequence of 
+  elements in $S$.
+  \[
+    m = s_1 s_2 \dots s_n \quad \text{with } s_i \in S,\,1 \leq i \leq n.
+  \]
+
+  A message is often also referred to as a \emph{string} or \emph{word}
+  in $S$. The number $n \in \naturals$ is the \emph{length} of $m$.
+\end{definition}
+
+\begin{remark} We denote:
+  \begin{itemize}
+    \item 
+      $|m| = n$.
+    \item $m|_k = s_1s_2 \dots s_k$ (with $k \leq n$).
+    \item $\varepsilon=$ The string of length zero, with $|\varepsilon| =
+      0$.
+    \item $S^0=$ Set of all words containing only $\varepsilon$.
+    \item $S^n=$ Set of all strings of length $n$
+    \item $S^*= S^0 \cup S^1 \cup S^2 \cup \dots$
+  \end{itemize}
+\end{remark}
+
+\subsection{Coding}
+\begin{definition}
+  Let $S$ and $T$ be two alphabets. A \emph{code} is an \emph{injective}
+  function 
+  \[
+    c : S \rightarrow T^*
+  \]
+
+  For each symbol $s \in S$ the string $c(s) \in T^*$ is called the 
+  codeword for $s$. The set of all codewords
+  \[
+    C = \left\{ c(s) : s \in S \right\}
+  \]
+  Is also referred to as the code.
+\end{definition}
+
+\begin{remark}
+  For $|T|=b$, we have a $b$-ary code.
+\end{remark}
+
+\begin{definition}
+  A code $c : S \rightarrow T^*$ is extended to  $S^*$ as follows: Given
+  a string $s_1s_2 \dots s_n \in S^*$ we define
+  \[
+    c(s_1s_2 \dots s_n) = c(s_1)c(s_2)\dots c(s_n)
+  \]
+\end{definition}
+
+\begin{definition}
+  A code $c : S \rightarrow T^*$ is \emph{uniquely decodeable} (UD) if the
+  extended code function $c : S^{*} \rightarrow T^*$ is \emph{injective}.
+  In other words, every string in $T^*$ corresponds to \emph{at most one} 
+  message in $S^*$.
+\end{definition}
+
+\begin{definition}
+  A code $c : S \rightarrow T^*$ is \emph{prefix-free} (short PF) if there
+  is no pair of codewords $q = c(s)$ and $q' = c(s')$ such that
+
+  \[
+    q' = qr  \quad \text{for some non-empty word } r \in T^*
+  \]
+\end{definition}
+\end{document}
+
+
