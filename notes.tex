@@ -34,7 +34,7 @@
 \newcommand{\integers}{\mathbb{Z}}
 \newcommand{\ent}{\bm{H}}
 \newcommand{\pr}{\bm{p}}
-\newcommand{\B}{\mathbb{B}}
+\newcommand{\B}{\mathbb{B}} 
 \begin{document}
 \title{Information and Codes}
 \author{Michael Akintunde}
@@ -436,6 +436,45 @@ Huffman's Rule is used to construct \emph{optimal codes}.
   $(S,p).$
   \label{optimalhuff}
 \end{theorem}
+
+\subsubsection*{Products and Distributions}
+\begin{definition}
+  Given a distribution $\bm{p} = (p_{ij})_{i,j}$ on $S = S' \times S''$.
+  The \emph{marginal distributions} $\pr'$ on $S'$ and $\pr''$ on $S''$
+  are given by 
+  \[
+    p_i' = \sum_{j=1}^{n}p_{ij} (i = 1,\dots,m) \text{ and }
+    p_j'' = \sum_{i=1}^{m}p_{ij} (j = 1,\dots,n).
+  \]
+
+  Note: $\pr'$ and $\pr''$ are independent if $p_{ij}=p_i'p_j''$ or
+  $\pr=\pr' \otimes \pr''$
+\end{definition}
+
+\subsubsection*{Entropies of Products}
+\begin{theorem}
+  For a distribution $\pr$ on $S' \times S''$ and its marginal 
+  distribution $\pr'$ and $\pr''$ we have:
+  \begin{equation}
+    \ent(\pr) \le \ent(\pr') + \ent(\pr'')
+    \label{entropyproduct}
+  \end{equation}
+  Equality holds iff $\pr'$ and $\pr''$ are independent
+  \label{entropyproduct}
+\end{theorem}
+
+\subsubsection*{Stattionary Sources}
+\begin{definition}
+  A source emitting a stream $\sigma_1\sigma_2\sigma_3\dots$ is called 
+  \emph{stationary} if, for any positive integers $l_1,l_2,\dots,l_r$,
+  the probabilities
+  \begin{equation}
+    Pr(\sigma_{k+l_1}=s_1,\sigma_{k+l_2}=s_2,\dots,\sigma_{k+l_r}=s_r)
+    \label{stationary}
+  \end{equation}
+  depend only on the string $s_1,s_2\cdots s_r$ and not on $k$.
+\end{definition}
+
 \end{document}
 
 
