@@ -3,9 +3,11 @@
 % Last Change: Tue Dec 01 09:00 PM 2015 G
 %
 \documentclass[a4paper]{article}
+\usepackage[margin=1in]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb,tabu}
 \usepackage{array}
+\usepackage{bm}
 \usepackage{float}
 \usepackage{enumerate}% http://ctan.org/pkg/enumerate
 \usepackage{amsthm}
@@ -30,7 +32,9 @@
 \newcommand{\naturals}{\mathbb{N}} 
 \newcommand{\complexes}{\mathbb{C}}
 \newcommand{\integers}{\mathbb{Z}}
-
+\newcommand{\ent}{\bm{H}}
+\newcommand{\pr}{\bm{p}}
+\newcommand{\B}{\mathbb{B}}
 \begin{document}
 \title{Information and Codes}
 \author{Michael Akintunde}
@@ -312,7 +316,7 @@
 
   A DTMC can be specified by a \emph{stochastic} square matrix
   \[
-    (P_{ij}) = Pr(X_N = s_i | X_{N-1} = s_j) \quad \text{with } 
+    \boxed{(P_{ij}) = Pr(X_N = s_i | X_{N-1} = s_j)} \quad \text{with } 
     \sum_{s_i \in S} P_{ij} = 1
   \]
 \end{definition}
@@ -330,7 +334,7 @@
   The \emph{average word length} $L$ of a code $c : S \rightarrow T^*$ for
   a source $(S,p)$ is 
   \[
-    L = p_1l_1 + p_2l_2 + \dots p_ml_m = \sum_{i=1}^m p_il_i = E(l).
+    \boxed{L = p_1l_1 + p_2l_2 + \dots p_ml_m = \sum_{i=1}^m p_il_i = E(l).}
   \]
   with $l_i = |c(s_i)|$ being the length of codewords in $T^*$ for each
   $s_i \in S$.
@@ -346,7 +350,7 @@
   (Entropy of a distribution). Given a distribution $p = (p_1, p_2, \dots,
   p_m)$, the \emph{entropy} of $p$ (of base $b$) is given by
   \[
-    H_b(p) = \sum_{i=1}^m p_i \log_b \left( \frac{1}{p_i} \right).
+    \boxed{  H_b(p) = \sum_{i=1}^m p_i \log_b \left( \frac{1}{p_i} \right).}
   \]
 \end{definition}
 
@@ -355,8 +359,8 @@
   \left( p_1, p_2, \dots , p_m \right)$ and $q = \left( q_1, q_2, \dots
   , q_m\right)$, then
   \[
-    H_b(p) = \sum_{i=1}^m p_i \cdot \log_b\left( \frac{1}{p_i} \right)
-    \leq \sum_{i=1}^m p_i \cdot\log_b\left( \frac{1}{q_i} \right)
+   \boxed{ H_b(p) = \sum_{i=1}^m p_i \cdot \log_b\left( \frac{1}{p_i} \right)
+   \leq \sum_{i=1}^m p_i \cdot\log_b\left( \frac{1}{q_i} \right)}
   \]
   \label{thm:comparison}
   Equality holds iff $p_i = q_i$ for all $1 \leq i \leq m$.
@@ -366,12 +370,72 @@
   The entropy of a probability distribution $p$ on $m$ symbols is at most
   $\log_b(m)$, i.e. 
   \[
-    H_b(p) \leq \log_b(m).
+    \boxed{ H_b(p) \leq \log_b(m).}
   \]
   There is equality iff $p_i = \frac{1}{m}$ for all symbols.
   \label{thm:uniform}
 \end{theorem}
 
+\begin{theorem}
+  (Fundamental Theorem). The average word length of any UD code 
+  $c : S \rightarrow T^*$ with $|T|=b$ for the source $(S,p)$ satisfies
+  \[
+    \boxed{L \geq H_b(p)}
+  \]
+  \label{thm:fundamental}
+\end{theorem}
+
+\subsubsection*{Shannon-Fano Rule}
+\begin{definition}
+  (Shannon-Fano Rule). Select the word length for symbol $s_i$ the least
+  possibl integer such that $b^{y_i}\geq \frac{1}{p_i}$
+\end{definition}
+
+\begin{theorem}
+  There exists a prefix-free code $c:S \rightarrow T^*$ with $|T|=b$ for the
+  source $(S,\bm{p})$ which satisfies $L < \bm{H}_b(\bm{p})+1$.
+  \label{SF}
+\end{theorem}
+
+\subsubsection*{Optimal PF Codes}
+\begin{lemma}
+  For an optimal prefix-free code $c:S \rightarrow \B^*$ for a source
+  $(S,\pr)$:
+  \begin{itemize}
+    \item $|c(s')| > |c(s)| \implies p_s \geq p_s'$
+    \item Among the codewords of maximal length there are two of the form
+      $w0$ and $w1$ for some $w \in \B^{*}$.
+  \end{itemize}
+  \label{optpf}
+\end{lemma}
+
+\subsubsection*{Huffman's Rule}
+Huffman's Rule is used to construct \emph{optimal codes}.
+\begin{enumerate}
+  \item Given a source $(S,\pr)$, let $s'$ and $s''$ be symbols with 
+    smallest probability. Construct $(S^*,\pr^*)$ by replacing $s'$ and
+    $s''$ with a new symbol $s^*$ with probability 
+    $p_{s^*}=p_{s'}+p_{s''}$
+  \item Given a PF binary code $h^*$ for $(S,\pr)$ with 
+    $h^*:s^*\mapsto w$ then define a binary code $h$ for $(S,\pr)$ with
+    $h:s' \mapsto w0$ and $h : s'' \mapsto w1$.
+\end{enumerate}
+
+\begin{lemma}
+  Let codes $h$ and $h^*$ be defined as required by H2. Then the average
+  word legthsof $h$ and $h'$ satisfy:
+  \[
+    L(h)=L(h^*)+p_*^*
+  \]
+  \label{avgwordlength}
+\end{lemma}
+
+\begin{theorem}
+  (Optimality of Huffman Code). 
+  If code $h'$ is optimal for $(S^*,p^*)$ then code $h$ is optimal for
+  $(S,p).$
+  \label{optimalhuff}
+\end{theorem}
 \end{document}
 
 
